@@ -6,9 +6,11 @@
  * @param  {String} delimiter [Optional] Delimiter to split columns on, default is ","
  * @return {Array}            Array of Objects
  */
-function decode ( arg, delimiter ) {
+function decode ( arg, delimiter, textdelimiter ) {
 	delimiter  = delimiter || ",";
-	var regex  = new RegExp( delimiter + "(?=(?:[^\"]|\"(?:[^\"])[^\"]*\")*$)" ),
+	textdelimiter = textdelimiter || '"';
+
+	var regex  = new RegExp( '\\' + delimiter + "(?=(?:[^" + textdelimiter + "]|" + textdelimiter + "(?:[^" + textdelimiter + "])[^" + textdelimiter + "]*" + textdelimiter + ")*$)" ),
 	    rows   = trim( arg ).split( "\n" ),
 	    keys   = rows.shift().split( delimiter ),
 	    result = [],
